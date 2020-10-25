@@ -140,6 +140,7 @@ class JMSSerializerExtensionTest extends TestCase
                     'attributes' => array('x' => 1720),
                     'groups' => array('Default', 'Registration'),
                     'enable_max_depth_checks' => true,
+                    'default_skip_when_empty' => false,
                 ),
                 'deserialization' => array(
                     'version' => 1640,
@@ -166,6 +167,7 @@ class JMSSerializerExtensionTest extends TestCase
             $this->assertSame($values['groups'], $this->getDefinitionMethodCall($def, 'setGroups')[0]);
             $this->assertSame($values['groups'], $this->getDefinitionMethodCall($def, 'setGroups')[0]);
             $this->assertSame(array(), $this->getDefinitionMethodCall($def, 'enableMaxDepthChecks'));
+            $this->assertSame(false, $this->getDefinitionMethodCall($def, 'enableSkipWhenEmpty'), $configKey);
         }
     }
 

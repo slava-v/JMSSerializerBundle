@@ -204,6 +204,13 @@ class JMSSerializerExtension extends ConfigurableExtension
                 $contextFactory->addMethodCall('enableMaxDepthChecks');
             }
         }
+
+        if (
+            array_key_exists('default_skip_when_empty', $config['default_context']['serialization'])
+            && (bool)$config['default_context']['serialization']['default_skip_when_empty'] === true
+        ) {
+            $contextFactory->addMethodCall('enableSkipWhenEmpty');
+        }
     }
 
     public function getConfiguration(array $config, ContainerBuilder $container)

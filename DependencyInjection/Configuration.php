@@ -399,6 +399,15 @@ class Configuration implements ConfigurationInterface
                     ->scalarNode('enable_max_depth_checks')
                         ->info('Flag to enable the max-depth exclusion strategy')
                     ->end()
+                    ->booleanNode('default_skip_when_empty')
+                        ->validate()
+                        ->ifTrue(function ($v) use ($name) {
+                            return $name === 'deserialization';
+                        })
+                        ->thenInvalid('Property can be used only in serialization context')
+                        ->end()
+                        ->info('Flag to enable skipping the property serialization when empty value')
+                    ->end()
                     ->arrayNode('attributes')
                         ->fixXmlConfig('attribute')
                         ->useAttributeAsKey('key')
